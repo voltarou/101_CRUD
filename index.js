@@ -40,3 +40,21 @@ app.get('api/mahasiswa', (req, res) => {
     });
 });
 
+app.post('/api/mahasiswa', (req, res) => {
+    const { nama, alamat, agama } = req.body;
+    
+    if (!nama || !alamat || !agama) {
+        return res.status(400).send('All fields are required');
+    }
+    const query = 'INSERT INTO biodata (nama, alamat, agama) VALUES (?, ?, ?)';
+    db.query(query, [nama, alamat, agama], (err, result) => {
+        if (err) {
+            console.error('Error inserting data:', err);
+            return res.status(500).send('Error inserting data');
+        }
+        res.status(201).send('Data inserted successfully');
+    });
+}   );
+
+
+
