@@ -56,5 +56,31 @@ app.post('/api/mahasiswa', (req, res) => {
     });
 }   );
 
+app.put('/api/mahasiswa/:id', (req, res) => {
+    const { id } = req.params;
+    const { nama, alamat, agama } = req.body;
+    db.query(
+        'UPDATE biodata SET nama = ?, alamat = ?, agama = ? WHERE id = ?',
+        [nama, alamat, agama, id],
+        (err, result) => {
+            if (err) {
+                console.error('Error updating data:', err);
+                return res.status(500).send('Error updating data');
+            }
+            res.send('Data updated successfully');
+        }
+    );
+});
+
+app.delete('/api/mahasiswa/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM biodata WHERE id = ?', [id], (err, result) => {
+        if (err) {
+            console.error('Error deleting data:', err);
+            return res.status(500).send('Error deleting data');
+        }
+        res.send('Data deleted successfully');
+    });
+});
 
 
