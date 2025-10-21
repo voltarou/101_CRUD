@@ -8,3 +8,24 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'iVoltarouuu13579',
+  database: 'mahasiswa',
+  port: 3309
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  } 
+    console.log('Connected to the MySQL database.');
+}); 
+
